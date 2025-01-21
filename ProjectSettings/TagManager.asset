@@ -43,6 +43,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Foreground
+    uniqueID: 1050301587
+    locked: 0
   - name: Aura Weapons
     uniqueID: 1224254647
     locked: 0
@@ -57,7 +60,4 @@ TagManager:
     locked: 0
   - name: Enemy
     uniqueID: 3181881063
-    locked: 0
-  - name: Foreground
-    uniqueID: 1050301587
     locked: 0
