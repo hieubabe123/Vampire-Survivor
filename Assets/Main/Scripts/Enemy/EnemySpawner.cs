@@ -97,13 +97,14 @@ public class EnemySpawner : MonoBehaviour
             }
         }
 
-        if(enemiesAlive < maxEnemiesAllowed){
-            maxEnemiesReached = false;
-        }
     }
 
     public void OnEnemyKilled(){
         enemiesAlive--;
+        
+        if(enemiesAlive < maxEnemiesAllowed){
+            maxEnemiesReached = false;
+        }
     }
 
     private void CheckTimeToSpawn(){
