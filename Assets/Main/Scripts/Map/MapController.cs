@@ -1,17 +1,17 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MapController : MonoBehaviour
 {
     [SerializeField] private List<GameObject> terrainChunks;
     [SerializeField] private GameObject player;
     public float checkerRadius;
-    private Vector3 noTerrainPosition;
     [SerializeField] private LayerMask terrainMask;
-    private PlayerMovement playerMovement;
-
     public GameObject currentChunk;
+    private Vector3 playerLastPosition;
+
 
     [Header("Optimization")]
     public List<GameObject> spawnedChunks;
@@ -22,83 +22,164 @@ public class MapController : MonoBehaviour
     private float currentOptimizerCooldown;
     public float optimizerCooldownTime;
 
-    
-    private void Start(){
-        playerMovement = FindObjectOfType<PlayerMovement>();
+
+    private void Start()
+    {
+        playerLastPosition = player.transform.position;
     }
 
-    private void Update(){
+    private void Update()
+    {
         ChunkChecker();
         ChunkOptimizer();
     }
 
-    private void ChunkChecker(){
+    private void ChunkChecker()
+    {
 
-        if(!currentChunk){
+        if (!currentChunk)
+        {
             return;
         }
+        Vector3 moveDirection = player.transform.position - playerLastPosition;
+        playerLastPosition = player.transform.position;
 
-        if(playerMovement.moveDir.x > 0 && playerMovement.moveDir.y ==0){ //right
-            if(!Physics2D.OverlapCircle(currentChunk.transform.Find("Right").position,checkerRadius,terrainMask)){
-                noTerrainPosition = currentChunk.transform.Find("Right").position;
-                SpawnBlock();
+        string directionName = GetDirectionName(moveDirection);
+
+        //To Spawn the one Chunk matching with direction Name (Ex: Up / Right/ Left/ Down/ Up + Right/....)
+        if (!Physics2D.OverlapCircle(currentChunk.transform.Find(directionName).position, checkerRadius, terrainMask))
+        {
+            SpawnChunk(currentChunk.transform.Find(directionName).position);
+
+            // To Check & Spawn chunk when player move to diagonal way (Ex: Move to Up + Right way -> Spawn Up right, up)
+            if(directionName.Contains("Right")){
+                CheckAndSpawnChunk("Right");
             }
-        } else if(playerMovement.moveDir.x < 0 && playerMovement.moveDir.y ==0){ // left
-            if(!Physics2D.OverlapCircle(currentChunk.transform.Find("Left").position,checkerRadius,terrainMask)){
-                noTerrainPosition = currentChunk.transform.Find("Left").position;
-                SpawnBlock();
+            if(directionName.Contains("Left")){
+                CheckAndSpawnChunk("Left");
             }
-        }else if(playerMovement.moveDir.x == 0 && playerMovement.moveDir.y > 0){ //Up
-            if(!Physics2D.OverlapCircle(currentChunk.transform.Find("Up").position,checkerRadius,terrainMask)){
-                noTerrainPosition = currentChunk.transform.Find("Up").position;
-                SpawnBlock();
+            if(directionName.Contains("Up")){
+                CheckAndSpawnChunk("Up");
             }
-        }else if(playerMovement.moveDir.x == 0 && playerMovement.moveDir.y < 0){ //Down
-            if(!Physics2D.OverlapCircle(currentChunk.transform.Find("Down").position,checkerRadius,terrainMask)){
-                noTerrainPosition = currentChunk.transform.Find("Down").position;
-                SpawnBlock();
+            if(directionName.Contains("Down")){
+                CheckAndSpawnChunk("Down");
             }
-        }else if(playerMovement.moveDir.x > 0 && playerMovement.moveDir.y > 0){ //Up + Right
-            if(!Physics2D.OverlapCircle(currentChunk.transform.Find("Up Right").position,checkerRadius,terrainMask)){
-                noTerrainPosition = currentChunk.transform.Find("Up Right").position;
-                SpawnBlock();
+        }
+
+    }
+
+    private void CheckAndSpawnChunk(string direction)
+    {
+        if (!Physics2D.OverlapCircle(currentChunk.transform.Find(direction).position, checkerRadius, terrainMask))
+        {
+            SpawnChunk(currentChunk.transform.Find(direction).position);
+        }
+    }
+
+    private string GetDirectionName(Vector3 direction)
+    {
+        direction = direction.normalized;
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        { //Go to horizontal direction than vertical direction
+            if (direction.y > 0.5f) //Up + X Direction
+            {
+                if (direction.x > 0)
+                { //Up + Right (x > 0 & y > 0)
+                    return "Up Right";
+                }
+                else
+                { //Up + Left (x < 0 & y > 0)
+                    return "Up Left";
+                }
             }
-        }else if(playerMovement.moveDir.x < 0 && playerMovement.moveDir.y > 0){ //Up + Left
-            if(!Physics2D.OverlapCircle(currentChunk.transform.Find("Up Left").position,checkerRadius,terrainMask)){
-                noTerrainPosition = currentChunk.transform.Find("Up Left").position;
-                SpawnBlock();
+            else if (direction.y < -0.5f) //Down + X direction
+            {
+                if (direction.x > 0)
+                { //Down + Right (x > 0 & y < 0)
+                    return "Down Right";
+                }
+                else
+                { //Down + Left (x < 0 & y < 0)
+                    return "Down Left";
+                }
             }
-        }else if(playerMovement.moveDir.x > 0 && playerMovement.moveDir.y < 0){ //Down + Right
-            if(!Physics2D.OverlapCircle(currentChunk.transform.Find("Down Right").position,checkerRadius,terrainMask)){
-                noTerrainPosition = currentChunk.transform.Find("Down Right").position;
-                SpawnBlock();
+            else // y == 0 (X Direction)
+            {
+                if (direction.x > 0f)
+                { // Right (y == 0 & x > 0)
+                    return "Right";
+                }
+                else
+                { // Left (y == 0 & x < 0)
+                    return "Left";
+                }
             }
-        }else if(playerMovement.moveDir.x < 0 && playerMovement.moveDir.y < 0){ //Down + Left
-            if(!Physics2D.OverlapCircle(currentChunk.transform.Find("Down Left").position,checkerRadius,terrainMask)){
-                noTerrainPosition = currentChunk.transform.Find("Down Left").position;
-                SpawnBlock();
+        }
+        else
+        { //Go to vertical direction than horizontal direction
+            if (direction.x > 0.5f)
+            {
+                if (direction.y > 0f)
+                { //Up + Right (x > 0 & y > 0)
+                    return "Up Right";
+                }
+                else
+                { //Up + Left (x > 0 & y < 0)
+                    return "Down Right";
+                }
+            }
+            else if (direction.x < -0.5f)
+            {
+                if (direction.y > 0)
+                { //Up + Left (x < 0 & y > 0)
+                    return "Up Left";
+                }
+                else
+                { ///Down + Left (x < 0 & y < 0)
+                    return "Down Left";
+                }
+            }
+            else
+            { // Y Direction (x == 0 )
+                if (direction.y > 0)
+                { // Up (y > 0 & x == 0)
+                    return "Up";
+                }
+                else
+                { // Down (y > 0 & x == 0)
+                    return "Down";
+                }
             }
         }
     }
 
-    private void SpawnBlock(){
-        int randomTerrain = Random.Range(0,terrainChunks.Count - 1);
-        latestChunk = Instantiate(terrainChunks[randomTerrain ],noTerrainPosition,Quaternion.identity);
+    private void SpawnChunk(Vector3 spawnPosition)
+    {
+        int randomTerrain = Random.Range(0, terrainChunks.Count - 1);
+        latestChunk = Instantiate(terrainChunks[randomTerrain], spawnPosition, Quaternion.identity);
         spawnedChunks.Add(latestChunk);
     }
 
-    private void ChunkOptimizer(){
+    private void ChunkOptimizer()
+    {
         currentOptimizerCooldown -= Time.deltaTime;
-        if(currentOptimizerCooldown <= 0f){
+        if (currentOptimizerCooldown <= 0f)
+        {
             currentOptimizerCooldown = optimizerCooldownTime;
-        }else{
+        }
+        else
+        {
             return;
         }
-        foreach(GameObject chunk in spawnedChunks){
+        foreach (GameObject chunk in spawnedChunks)
+        {
             chunkToPlayerDistance = Vector3.Distance(player.transform.position, chunk.transform.position);
-            if(chunkToPlayerDistance > maxOptimizeDistance){
+            if (chunkToPlayerDistance > maxOptimizeDistance)
+            {
                 chunk.SetActive(false);
-            }else{
+            }
+            else
+            {
                 chunk.SetActive(true);
             }
         }

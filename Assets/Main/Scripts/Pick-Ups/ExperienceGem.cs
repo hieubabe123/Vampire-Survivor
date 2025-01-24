@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ExperienceGem : MonoBehaviour, ICollectible
+public class ExperienceGem : PickUp
 {
     public int experienceGranted;
-    public void Collect(){
+    public override void Collect(){
+        if(hasBeenCollected){
+            return;
+        }else{
+            base.Collect();
+        }
         PlayerStats player = FindObjectOfType<PlayerStats>();
         player.IncreaseExperience(experienceGranted);
         Destroy(gameObject);
-    }
-
-    private void OnTriggerEnter2D(Collider2D other){
-        if(other.CompareTag("Player")){
-            Destroy(gameObject);
-        }
     }
 }

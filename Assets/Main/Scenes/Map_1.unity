@@ -6085,7 +6085,7 @@ MonoBehaviour:
   - {fileID: 843186774}
   - {fileID: 1043008012}
   - {fileID: 1206557490}
-  timeLimit: 60
+  timeLimit: 30
   stopWatchDisplay: {fileID: 577267629}
   isGameOver: 0
   chosingUpgrade: 0

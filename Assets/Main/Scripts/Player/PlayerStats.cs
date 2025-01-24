@@ -137,7 +137,7 @@ public class PlayerStats : MonoBehaviour
     [Header("UI")]
     public Image healthBar;
     public Image expBar;
-    public TextMeshProUGUI levelText;
+    public TMP_Text levelText;
 
     //I-Frames
     [Header("I-Frames")]

@@ -27,19 +27,19 @@ public class GameManager : MonoBehaviour
 
 
     [Header("Current Stat Displays")]
-    public TextMeshProUGUI currentHealthDisplay;
-    public TextMeshProUGUI currentRecoveryDisplay;
-    public TextMeshProUGUI currentMoveSpeedDisplay;
-    public TextMeshProUGUI currentMightDisplay;
-    public TextMeshProUGUI currentProjectileSpeedDisplay;
-    public TextMeshProUGUI currentMagnetDisplay;
+    public TMP_Text currentHealthDisplay;
+    public TMP_Text currentRecoveryDisplay;
+    public TMP_Text currentMoveSpeedDisplay;
+    public TMP_Text currentMightDisplay;
+    public TMP_Text currentProjectileSpeedDisplay;
+    public TMP_Text currentMagnetDisplay;
 
 
     [Header("Results Screen Displays")]
     public Image chosenCharacterImage;
-    public TextMeshProUGUI chosenCharacterName;
-    public TextMeshProUGUI levelReachedDisplay;
-    public TextMeshProUGUI timeSurvivedDisplay;
+    public TMP_Text chosenCharacterName;
+    public TMP_Text levelReachedDisplay;
+    public TMP_Text timeSurvivedDisplay;
     public List<Image> chosenWeaponUI = new List<Image>(6);
     public List<Image> chosenPassiveItemUI = new List<Image>(6);
 
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     [Header("Stop Watch")]
     public float timeLimit;
     private float stopWatchTime;
-    public TextMeshProUGUI stopWatchDisplay;
+    public TMP_Text stopWatchDisplay;
 
     public bool isGameOver = false;
 
@@ -231,7 +231,7 @@ public class GameManager : MonoBehaviour
         stopWatchTime += Time.deltaTime;
         UpdateStopwatchDisplay();
         if(stopWatchTime >= timeLimit){
-            GameOver();
+            playerObject.SendMessage("Kill");
         }
     }
 

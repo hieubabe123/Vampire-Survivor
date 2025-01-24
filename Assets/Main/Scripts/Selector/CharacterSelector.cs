@@ -17,16 +17,6 @@ public class CharacterSelector : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     // return characterData to PlayerStats
     public static CharacterScriptableObject GetData(){
