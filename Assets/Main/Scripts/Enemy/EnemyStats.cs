@@ -44,6 +44,10 @@ public class EnemyStats : MonoBehaviour
         currentHealth -= dmg;
         StartCoroutine(DamageFlash());
 
+        if(dmg > 0){
+            GameManager.GenerateFloatingText(Mathf.FloorToInt(dmg).ToString(),transform);
+        }
+
         //Aplly Knockback when knockback Force is not zero
         if(knockBackForce > 0){
             Vector2 direction = (Vector2)transform.position - sourcePosition;
