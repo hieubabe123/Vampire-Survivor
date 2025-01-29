@@ -8,12 +8,17 @@ public class PickUpBobbingAnimation : MonoBehaviour
     public float magtinude;
     public Vector3 direction;
     private Vector3 initialPosition;
+    private PickUp pickUp;
 
     private void Start() {
+        pickUp = GetComponent<PickUp>();
         initialPosition = this.transform.position;
     }
 
     private void Update() {
-        transform.position = initialPosition + direction * Mathf.Sin(frequency * Time.time) * magtinude;
+        if(pickUp != null && !pickUp.hasBeenCollected){
+            transform.position = initialPosition + direction * Mathf.Sin(frequency * Time.time) * magtinude;
+
+        }
     }
 }

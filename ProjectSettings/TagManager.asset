@@ -55,8 +55,14 @@ TagManager:
   - name: Prop
     uniqueID: 265658353
     locked: 0
+  - name: Pick up
+    uniqueID: 583352031
+    locked: 0
   - name: Player
     uniqueID: 1397166461
+    locked: 0
+  - name: Bullet
+    uniqueID: 4293525221
     locked: 0
   - name: Enemy
     uniqueID: 3181881063

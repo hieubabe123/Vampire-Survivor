@@ -6085,7 +6085,7 @@ MonoBehaviour:
   - {fileID: 843186774}
   - {fileID: 1043008012}
   - {fileID: 1206557490}
-  timeLimit: 30
+  timeLimit: 60
   stopWatchDisplay: {fileID: 577267629}
   isGameOver: 0
   chosingUpgrade: 0
@@ -7439,9 +7439,8 @@ RectTransform:
   - {fileID: 597939460}
   - {fileID: 259447832}
   - {fileID: 47084764}
-  - {fileID: 1773230478}
   m_Father: {fileID: 1774660621}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -8219,7 +8218,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1773230477}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8227,8 +8226,8 @@ RectTransform:
   - {fileID: 268219832}
   - {fileID: 449960034}
   - {fileID: 959598049}
-  m_Father: {fileID: 1595349106}
-  m_RootOrder: 3
+  m_Father: {fileID: 1774660621}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -8368,6 +8367,7 @@ RectTransform:
   m_Children:
   - {fileID: 109621597}
   - {fileID: 577267631}
+  - {fileID: 1773230478}
   - {fileID: 1595349106}
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -9642,6 +9642,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1368009848}
     - target: {fileID: 2495089583894060066, guid: d2d868a0827b9884bbb548469e3e670e, type: 3}
+      propertyPath: weaponEvolution.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495089583894060066, guid: d2d868a0827b9884bbb548469e3e670e, type: 3}
       propertyPath: weaponUI_Slots.Array.data[0]
       value: 
       objectReference: {fileID: 1603456508}
@@ -9665,6 +9669,10 @@ PrefabInstance:
       propertyPath: weaponUI_Slots.Array.data[5]
       value: 
       objectReference: {fileID: 559604823}
+    - target: {fileID: 2495089583894060066, guid: d2d868a0827b9884bbb548469e3e670e, type: 3}
+      propertyPath: weaponEvolution.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 88ba612e34950a74dae46ff096b21d2d, type: 2}
     - target: {fileID: 2495089583894060066, guid: d2d868a0827b9884bbb548469e3e670e, type: 3}
       propertyPath: passiveItemUI_Slots.Array.data[0]
       value: 
@@ -9878,6 +9886,63 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3634330381365230964, guid: d362a695fd834a149917a969d849fb35, type: 3}
   m_PrefabInstance: {fileID: 3634330381313118966}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4597857236478755003
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4597857237049938816, guid: d6c4eb5d445a9f44ab5e7028be61fa71, type: 3}
+      propertyPath: m_Name
+      value: Treasure Chest Lock
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597857237049938820, guid: d6c4eb5d445a9f44ab5e7028be61fa71, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597857237049938820, guid: d6c4eb5d445a9f44ab5e7028be61fa71, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597857237049938820, guid: d6c4eb5d445a9f44ab5e7028be61fa71, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597857237049938820, guid: d6c4eb5d445a9f44ab5e7028be61fa71, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597857237049938820, guid: d6c4eb5d445a9f44ab5e7028be61fa71, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597857237049938820, guid: d6c4eb5d445a9f44ab5e7028be61fa71, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597857237049938820, guid: d6c4eb5d445a9f44ab5e7028be61fa71, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597857237049938820, guid: d6c4eb5d445a9f44ab5e7028be61fa71, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597857237049938820, guid: d6c4eb5d445a9f44ab5e7028be61fa71, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597857237049938820, guid: d6c4eb5d445a9f44ab5e7028be61fa71, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597857237049938820, guid: d6c4eb5d445a9f44ab5e7028be61fa71, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d6c4eb5d445a9f44ab5e7028be61fa71, type: 3}
 --- !u!1001 &6479100721435434746
 PrefabInstance:
   m_ObjectHideFlags: 0

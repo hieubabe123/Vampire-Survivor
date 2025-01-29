@@ -145,9 +145,6 @@ public class PlayerStats : MonoBehaviour
     public float invicibilityTimer;
     public bool isInvicible;
 
-    public GameObject weaponTest2;
-    public GameObject passiveItemTest1;
-    public GameObject passiveItemTest2;
 
     private void Awake()
     {
@@ -169,9 +166,6 @@ public class PlayerStats : MonoBehaviour
 
         //Spawn starting weapon
         SpawnWeapon(characterData.StartingWeapon);
-        //SpawnWeapon(weaponTest2);
-        //SpawnPassiveItem(passiveItemTest2);
-        SpawnPassiveItem(passiveItemTest1);
     }
 
     private void Start()

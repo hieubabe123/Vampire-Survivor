@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PickUp : MonoBehaviour, ICollectible
 {
-    protected bool hasBeenCollected = false;
+    public bool hasBeenCollected = false;
 
     public virtual void Collect(){
         hasBeenCollected = true;
