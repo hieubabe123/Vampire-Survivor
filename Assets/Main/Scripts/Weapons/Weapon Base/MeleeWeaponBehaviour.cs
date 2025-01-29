@@ -33,7 +33,7 @@ public class MeleeWeaponBehaviour : MonoBehaviour
     protected virtual void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("Enemy")){
             EnemyStats enemy = other.GetComponent<EnemyStats>();
-            enemy.TakeDamage(GetCurrentDamage());
+            enemy.TakeDamage(GetCurrentDamage(),transform.position);
         }else if(other.CompareTag("Prop")){
             if(other.gameObject.TryGetComponent(out BreakableProps breakable)){
                 breakable.TakeDamage(GetCurrentDamage());

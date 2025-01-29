@@ -16,6 +16,8 @@ public class PlayerStats : MonoBehaviour
     private float currentProjectilespeed;
     private float currentMagnet;
 
+    public ParticleSystem damageEffect;
+
 #region Current Stats Properties
     // To seperate private stat in PlayerStats script and child stat in another script
     public float CurrentHealth{
@@ -237,6 +239,10 @@ public class PlayerStats : MonoBehaviour
         if (!isInvicible)
         {
             CurrentHealth -= dmg;
+
+            if(damageEffect){
+                Instantiate(damageEffect, transform.position, Quaternion.identity);
+            }
             invicibilityTimer = invicibilityDuration;
             isInvicible = true;
             if (CurrentHealth <= 0)

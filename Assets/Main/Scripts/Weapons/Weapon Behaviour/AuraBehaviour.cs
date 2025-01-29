@@ -18,7 +18,7 @@ public class AuraBehaviour : MeleeWeaponBehaviour
     protected override void OnTriggerEnter2D(Collider2D other){
         if(other.CompareTag("Enemy") && !markedEnemies.Contains(other.gameObject)){
             EnemyStats enemy = other.GetComponent<EnemyStats>();
-            enemy.TakeDamage(GetCurrentDamage());
+            enemy.TakeDamage(GetCurrentDamage(),transform.position);
             markedEnemies.Add(other.gameObject);  //Mark the Enemy had been taken Damage & can not take other Damage from this Aura (Must other Aura)
         } else if(other.CompareTag("Prop")){
             if(other.gameObject.TryGetComponent(out BreakableProps breakable) && !markedEnemies.Contains(other.gameObject)){
