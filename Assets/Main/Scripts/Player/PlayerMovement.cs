@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Terresquall;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -28,19 +29,30 @@ public class PlayerMovement : MonoBehaviour
 
 
     private void FixedUpdate() {
+        InputManagement();
         Move();
         FlipSprite();
     }
 
 
-
-    private void Move(){
+    private void InputManagement(){
         if(GameManager.instance.isGameOver){
             return;
         }
-        moveDir = new Vector2 (inputSystem.GetMovementVectorNormalized().x,inputSystem.GetMovementVectorNormalized().y);
-        float moveDistance = playerStats.CurrentMovespeed * Time.deltaTime;
-        rb2d.velocity = moveDir * moveDistance;
+        float moveX, moveY;
+        if(VirtualJoystick.CountActiveInstances() > 0){
+            moveX = VirtualJoystick.GetAxisRaw("Horizontal");
+            moveY = VirtualJoystick.GetAxisRaw("Vertical");
+        }else{
+            moveX = Input.GetAxisRaw("Horizontal");
+            moveY = Input.GetAxisRaw("Vertical");
+        }
+
+        moveDir = new Vector2(moveX, moveY).normalized;
+
+        //moveDir = new Vector2 (inputSystem.GetMovementVectorNormalized().x,inputSystem.GetMovementVectorNormalized().y);
+        //float moveDistance = playerStats.CurrentMovespeed * Time.deltaTime;
+        //rb2d.velocity = moveDir * moveDistance;
 
         if(moveDir.x != 0){                  //Check last move Direction
             lastMovedVectorX = moveDir.x;
@@ -54,6 +66,10 @@ public class PlayerMovement : MonoBehaviour
         if(moveDir.x != 0 && moveDir.y != 0){
             lastMovedVector = new Vector2(lastMovedVectorX,lastMovedVectorY);
         }
+    }
+
+    private void Move(){
+        rb2d.velocity = new Vector2(moveDir.x * playerStats.CurrentMovespeed, moveDir.y * playerStats.CurrentMovespeed);
     }
 
     private void FlipSprite(){

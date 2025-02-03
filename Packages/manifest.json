@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.unity.cinemachine": "2.10.3",
     "com.unity.collab-proxy": "2.5.1",
     "com.unity.feature.2d": "2.0.1",
     "com.unity.ide.rider": "3.0.31",
@@ -30,6 +31,7 @@
     "com.unity.modules.tilemap": "1.0.0",
     "com.unity.modules.ui": "1.0.0",
     "com.unity.modules.uielements": "1.0.0",
+    "com.unity.modules.uielementsnative": "1.0.0",
     "com.unity.modules.umbra": "1.0.0",
     "com.unity.modules.unityanalytics": "1.0.0",
     "com.unity.modules.unitywebrequest": "1.0.0",
