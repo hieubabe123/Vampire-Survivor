@@ -153,8 +153,6 @@ public class GameManager : MonoBehaviour
         }
         rectTransform.position = referenceCamera.WorldToScreenPoint(target.position);
 
-        Destroy(textObj,duration);
-
         textObj.transform.SetParent(instance.damageTextCanvas.transform);
 
         WaitForEndOfFrame wait = new WaitForEndOfFrame();
@@ -169,8 +167,9 @@ public class GameManager : MonoBehaviour
             yOffset += speed * Time.deltaTime;
             rectTransform.transform.position = referenceCamera.WorldToScreenPoint(target.position + new Vector3(0, yOffset));
         }
-
         
+
+        Destroy(textObj,duration);
     }
 
     public void ChangeState(GameState newState)
