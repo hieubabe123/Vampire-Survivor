@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     public GameObject pauseScreen;
     public GameObject resultScreen;
     public GameObject levelUpScreen;
+    public GameObject visualJoystick;
 
 
     [Header("Current Stat Displays")]
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text stopWatchDisplay;
 
     public bool isGameOver = false;
+    public bool isPausedGame = false;
 
 
     //Check if player chosen the upgrade
@@ -96,11 +98,13 @@ public class GameManager : MonoBehaviour
         {
             case GameState.GamePlay:
                 CheckForPausedAndResume();
+                visualJoystick.SetActive(true);
                 UpdateStopwatch();
                 break;
 
             case GameState.Paused:
                 CheckForPausedAndResume();
+                visualJoystick.SetActive(false);
                 break;
 
             case GameState.GameOver:
@@ -109,6 +113,7 @@ public class GameManager : MonoBehaviour
                     isGameOver = true;
                     Time.timeScale = 0f;
                     Debug.Log("Game over");
+                    visualJoystick.SetActive(false);
                     DisplayResults();
                 }
                 break;
@@ -119,6 +124,7 @@ public class GameManager : MonoBehaviour
                     Time.timeScale = 0f;
                     Debug.Log("Upgrades shown");
                     levelUpScreen.SetActive(true);
+                    visualJoystick.SetActive(false);
                 }
                 break;
 
@@ -151,9 +157,12 @@ public class GameManager : MonoBehaviour
         if(textFont){
             tmPro.font = textFont;
         }
+        
         rectTransform.position = referenceCamera.WorldToScreenPoint(target.position);
 
         textObj.transform.SetParent(instance.damageTextCanvas.transform);
+        
+        Destroy(textObj,duration);
 
         WaitForEndOfFrame wait = new WaitForEndOfFrame();
         float time = 0;
@@ -167,9 +176,6 @@ public class GameManager : MonoBehaviour
             yOffset += speed * Time.deltaTime;
             rectTransform.transform.position = referenceCamera.WorldToScreenPoint(target.position + new Vector3(0, yOffset));
         }
-        
-
-        Destroy(textObj,duration);
     }
 
     public void ChangeState(GameState newState)
@@ -181,6 +187,7 @@ public class GameManager : MonoBehaviour
     {
         if (currentState != GameState.Paused)
         {
+            isPausedGame = true;
             previousState = currentState;
             currentState = GameState.Paused;
             Time.timeScale = 0f;
@@ -193,6 +200,7 @@ public class GameManager : MonoBehaviour
     {
         if (currentState == GameState.Paused)
         {
+            isPausedGame = false;
             currentState = previousState;
             currentState = GameState.GamePlay;
             Time.timeScale = 1.0f;
@@ -281,6 +289,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    #region Stop Watch
     private void UpdateStopwatch(){
         stopWatchTime += Time.deltaTime;
         UpdateStopwatchDisplay();
@@ -295,7 +304,9 @@ public class GameManager : MonoBehaviour
 
         stopWatchDisplay.text = string.Format("{0:00}:{1:00}",minutes,seconds);
     }
+    #endregion
 
+    #region Level Up
     public void StartLevelUp(){
         ChangeState(GameState.LevelUp);
         playerObject.SendMessage("RemoveAndApplyUpgrade");
@@ -306,7 +317,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         levelUpScreen.SetActive(false);
         ChangeState(GameState.GamePlay);
-
+        visualJoystick.SetActive(true);
     }
+    #endregion
 
 }
