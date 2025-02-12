@@ -9,10 +9,14 @@ public class AuraController : WeaponController
     {
         base.Start();
     }
-    protected override void Attack(){
+    protected override void Attack()
+    {
         base.Attack();
-        GameObject spawnedAura = Instantiate(weaponData.WeaponPrefab);
-        spawnedAura.transform.position = transform.position;
-        spawnedAura.transform.parent = transform;
+        for (int projectile = 0; projectile < currentProjectileCount; projectile++)
+        {
+            GameObject spawnedAura = Instantiate(weaponData.WeaponPrefab);
+            spawnedAura.transform.position = transform.position;
+            spawnedAura.transform.parent = transform;
+        }
     }
 }

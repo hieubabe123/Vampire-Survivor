@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 3248900886963724965}
   - component: {fileID: -7458107703812407706}
   - component: {fileID: 8543892740494305419}
+  - component: {fileID: 7106328229872663252}
   m_Layer: 0
   m_Name: Prop 3
-  m_TagString: Untagged
+  m_TagString: Prop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a1eaec20ecc7e948b0a0713049de823, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1
+  health: 10
 --- !u!60 &8543892740494305419
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -139,3 +140,19 @@ PolygonCollider2D:
       - {x: 0.12, y: -0.42999998}
       - {x: 0.24, y: -0.38}
       - {x: 0.29999998, y: -0.35}
+--- !u!114 &7106328229872663252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788175219595810708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f34c889c16d67469c723c393b46c81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drops:
+  - name: Health Potion
+    itemPrefab: {fileID: 915684022705366245, guid: 4c62ba02d5ee0a44e8f92b3990176ec9, type: 3}
+    dropRate: 30

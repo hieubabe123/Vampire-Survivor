@@ -16,7 +16,8 @@ public class ProjectileWeaponBehaviours : MonoBehaviour
     protected float currentCooldownDuration;
     protected int currentPierce;
 
-    private void Awake(){
+    private void Awake()
+    {
         currentDamage = weaponData.DamageWeapon;
         currentSpeed = weaponData.SpeedWeapon;
         currentCooldownDuration = weaponData.CooldownDuration;
@@ -27,11 +28,13 @@ public class ProjectileWeaponBehaviours : MonoBehaviour
         Destroy(gameObject, destroyAfterSeconds);
     }
 
-    public float GetCurrentDamage(){
+    public float GetCurrentDamage()
+    {
         return currentDamage *= FindObjectOfType<PlayerStats>().CurrentMight;
     }
 
-    public void DirectionChecker(Vector3 dir){
+    public void DirectionChecker(Vector3 dir)
+    {
         direction = dir;
 
         float dirX = direction.x;
@@ -40,41 +43,61 @@ public class ProjectileWeaponBehaviours : MonoBehaviour
         Vector3 scale = transform.localScale;
         Vector3 rotation = transform.rotation.eulerAngles;
 
-        if(dirX < 0 && dirY == 0){ //left
+        if (dirX < 0 && dirY == 0)
+        { //left
             scale.x *= -1;
-        } else if(dirX == 0 && dirY < 0){  //down
+        }
+        else if (dirX == 0 && dirY < 0)
+        {  //down
             rotation.z = -90f;
-        } else if(dirX == 0 && dirY > 0){  //up
+        }
+        else if (dirX == 0 && dirY > 0)
+        {  //up
             rotation.z = 90f;
-        } else if(dir.x > 0 && dir.y > 0){ //right up
+        }
+        else if (dir.x > 0 && dir.y > 0)
+        { //right up
             rotation.z = 45f;
-        } else if(dir.x < 0 && dir.y > 0){  //left up
+        }
+        else if (dir.x < 0 && dir.y > 0)
+        {  //left up
             rotation.z = 135f;
-        } else if(dir.x > 0 && dir.y < 0){ //right down
+        }
+        else if (dir.x > 0 && dir.y < 0)
+        { //right down
             rotation.z = -45f;
-        } else if(dir.x < 0 && dir.y < 0){  //left down
+        }
+        else if (dir.x < 0 && dir.y < 0)
+        {  //left down
             rotation.z = -135f;
         }
         transform.localScale = scale;
         transform.rotation = Quaternion.Euler(rotation);
     }
 
-    protected virtual void OnTriggerEnter2D(Collider2D other) {
-        if(other.CompareTag("Enemy")){
+    protected virtual void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
             EnemyStats enemy = other.GetComponent<EnemyStats>();
-            enemy.TakeDamage(GetCurrentDamage(),transform.position);
+            enemy.TakeDamage(GetCurrentDamage(), transform.position);
             ReducePierce();
-        }else if(other.CompareTag("Prop")){
-            if(other.gameObject.TryGetComponent(out BreakableProps breakable)){
+        }
+        else if (other.CompareTag("Prop"))
+        {
+            if (other.gameObject.TryGetComponent(out BreakableProps breakable))
+            {
                 breakable.TakeDamage(GetCurrentDamage());
                 ReducePierce();
             }
         }
     }
 
-    private void ReducePierce(){
+    private void ReducePierce()
+    {
         currentPierce--;
-        if(currentPierce <= 0){
+        if (currentPierce <= 0)
+        {
             Destroy(gameObject);
         }
     }

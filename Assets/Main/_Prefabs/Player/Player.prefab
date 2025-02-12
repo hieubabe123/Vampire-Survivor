@@ -260,7 +260,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1397166461
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 1
   m_Sprite: {fileID: 335895618, guid: 814875116332bc64fb44ecab1da9a97f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -397,6 +397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterData: {fileID: 0}
+  damageEffect: {fileID: 2550916818232883122, guid: c054c3ee9cfa6c54aa2ab87f5db88bcd, type: 3}
   experience: 0
   level: 1
   experienceCap: 0
@@ -415,9 +416,6 @@ MonoBehaviour:
   invicibilityDuration: 1
   invicibilityTimer: 0
   isInvicible: 0
-  weaponTest2: {fileID: 1664064770979739338, guid: efd1d71323abe984184f9268797a42cf, type: 3}
-  passiveItemTest1: {fileID: 5255266253465975541, guid: 555635da482dd0a4fae107e28b389a38, type: 3}
-  passiveItemTest2: {fileID: 2133245362410862491, guid: fd3c554f4fc518c43b05c0ef8f032291, type: 3}
 --- !u!61 &7316905943278918870
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -486,6 +484,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  weaponEvolution:
+  - {fileID: 11400000, guid: d23adde5e8433f1468deedb0c72358a5, type: 2}
+  - {fileID: 11400000, guid: 88ba612e34950a74dae46ff096b21d2d, type: 2}
   weaponUpgradesOptions:
   - weaponUpgradeIndex: 0
     initialWeapon: {fileID: 1472844385010993509, guid: b462ca8809fad4b42b697d325cb35251, type: 3}

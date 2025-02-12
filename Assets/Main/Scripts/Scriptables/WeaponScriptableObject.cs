@@ -7,7 +7,7 @@ public class WeaponScriptableObject : ScriptableObject
 {
     [SerializeField] private GameObject weaponPrefab;
 
-    public GameObject WeaponPrefab {get => weaponPrefab; private set => weaponPrefab = value; }
+    public GameObject WeaponPrefab { get => weaponPrefab; private set => weaponPrefab = value; }
 
     // Base stat for weapons
     [SerializeField] private float damageWeapon;
@@ -16,11 +16,14 @@ public class WeaponScriptableObject : ScriptableObject
     [SerializeField] private float speedWeapon;
     public float SpeedWeapon { get => speedWeapon; private set => speedWeapon = value; }
 
-    [SerializeField]private float cooldownDuration;
-    public float CooldownDuration { get => cooldownDuration; private set => cooldownDuration = value;}
+    [SerializeField] private float cooldownDuration;
+    public float CooldownDuration { get => cooldownDuration; private set => cooldownDuration = value; }
 
-    [SerializeField]private int pierce;
-    public int Pierce { get => pierce; private set => pierce = value;}
+    [SerializeField] private int pierce;
+    public int Pierce { get => pierce; private set => pierce = value; }
+
+    [SerializeField] private int projectileCount;
+    public int ProjectileCount { get => projectileCount; private set => projectileCount = value; }
 
     [SerializeField] private int level;
     public int Level { get => level; private set => level = value; }
@@ -28,7 +31,7 @@ public class WeaponScriptableObject : ScriptableObject
 
     //Next Weapon prefab when level up, not to confused with the weapon spawned at start game
     [SerializeField] private GameObject nextLevelPrefab;
-    public GameObject NextLevelPrefab{ get => nextLevelPrefab; private set => nextLevelPrefab = value;}
+    public GameObject NextLevelPrefab { get => nextLevelPrefab; private set => nextLevelPrefab = value; }
 
     //Name & Description
     [SerializeField] private new string name;
@@ -42,5 +45,5 @@ public class WeaponScriptableObject : ScriptableObject
     public Sprite Icon { get => icon; private set => icon = value; }
 
     [SerializeField] int evolvedUpgradeToRemove;
-    public int EvolvedUpgradeToRemove { get => evolvedUpgradeToRemove; private set => evolvedUpgradeToRemove = value;}
+    public int EvolvedUpgradeToRemove { get => evolvedUpgradeToRemove; private set => evolvedUpgradeToRemove = value; }
 }

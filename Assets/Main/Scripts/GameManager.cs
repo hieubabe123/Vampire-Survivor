@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     public GameObject pauseScreen;
     public GameObject resultScreen;
     public GameObject levelUpScreen;
+    public GameObject virtualJoystick;
 
 
     [Header("Current Stat Displays")]
@@ -97,28 +98,25 @@ public class GameManager : MonoBehaviour
             case GameState.GamePlay:
                 CheckForPausedAndResume();
                 UpdateStopwatch();
+                virtualJoystick.SetActive(true);
                 break;
 
             case GameState.Paused:
                 CheckForPausedAndResume();
+                virtualJoystick.SetActive(false);
                 break;
 
             case GameState.GameOver:
                 if (!isGameOver)
                 {
-                    isGameOver = true;
-                    Time.timeScale = 0f;
-                    Debug.Log("Game over");
-                    DisplayResults();
+                    EndGame();
                 }
                 break;
 
             case GameState.LevelUp:
-                if(!chosingUpgrade){
-                    chosingUpgrade = true;
-                    Time.timeScale = 0f;
-                    Debug.Log("Upgrades shown");
-                    levelUpScreen.SetActive(true);
+                if (!chosingUpgrade)
+                {
+                    UpgradingLevel();
                 }
                 break;
 
@@ -128,18 +126,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static void GenerateFloatingText(string text, Transform target, float duration = 1f, float speed = 1f){
-        if(!instance.damageTextCanvas){
+    public static void GenerateFloatingText(string text, Transform target, float duration = 1f, float speed = 1f)
+    {
+        if (!instance.damageTextCanvas)
+        {
             return;
         }
-        
-        if(!instance.referenceCamera){
+
+        if (!instance.referenceCamera)
+        {
             instance.referenceCamera = Camera.main;
         }
         instance.StartCoroutine(instance.GenerateFloatingTextCoroutine(text, target, duration, speed));
     }
 
-    private IEnumerator GenerateFloatingTextCoroutine(string text, Transform target, float duration = 1f, float speed = 50f){
+    private IEnumerator GenerateFloatingTextCoroutine(string text, Transform target, float duration = 1f, float speed = 50f)
+    {
         //Generating the floating text
         GameObject textObj = new GameObject("Damage Floating Text");
         RectTransform rectTransform = textObj.AddComponent<RectTransform>();
@@ -148,29 +150,31 @@ public class GameManager : MonoBehaviour
         tmPro.horizontalAlignment = HorizontalAlignmentOptions.Center;
         tmPro.verticalAlignment = VerticalAlignmentOptions.Middle;
         tmPro.fontSize = textFontSize;
-        if(textFont){
+        if (textFont)
+        {
             tmPro.font = textFont;
         }
         rectTransform.position = referenceCamera.WorldToScreenPoint(target.position);
 
-        Destroy(textObj,duration);
+        Destroy(textObj, duration);
 
         textObj.transform.SetParent(instance.damageTextCanvas.transform);
 
         WaitForEndOfFrame wait = new WaitForEndOfFrame();
         float time = 0;
-        float yOffset= 0;
-        while(time< duration){
+        float yOffset = 0;
+        while (time < duration)
+        {
             yield return wait;
             time += Time.deltaTime;
 
-            tmPro.color = new Color(tmPro.color.r, tmPro.color.g,tmPro.color.b, 1 - time /duration);
+            tmPro.color = new Color(tmPro.color.r, tmPro.color.g, tmPro.color.b, 1 - time / duration);
 
             yOffset += speed * Time.deltaTime;
             rectTransform.transform.position = referenceCamera.WorldToScreenPoint(target.position + new Vector3(0, yOffset));
         }
 
-        
+
     }
 
     public void ChangeState(GameState newState)
@@ -186,6 +190,7 @@ public class GameManager : MonoBehaviour
             currentState = GameState.Paused;
             Time.timeScale = 0f;
             pauseScreen.SetActive(true);
+            virtualJoystick.SetActive(false);
             Debug.Log("Game is paused");
         }
     }
@@ -198,8 +203,27 @@ public class GameManager : MonoBehaviour
             currentState = GameState.GamePlay;
             Time.timeScale = 1.0f;
             pauseScreen.SetActive(false);
+            virtualJoystick.SetActive(true);
             Debug.Log("Game is Playing");
         }
+    }
+
+    private void EndGame()
+    {
+        isGameOver = true;
+        Time.timeScale = 0f;
+        Debug.Log("Game over");
+        virtualJoystick.SetActive(false);
+        DisplayResults();
+    }
+
+    private void UpgradingLevel()
+    {
+        chosingUpgrade = true;
+        Time.timeScale = 0f;
+        Debug.Log("Upgrades shown");
+        virtualJoystick.SetActive(false);
+        levelUpScreen.SetActive(true);
     }
 
     private void CheckForPausedAndResume()
@@ -226,7 +250,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        timeSurvivedDisplay.text = stopWatchDisplay.text ;
+        timeSurvivedDisplay.text = stopWatchDisplay.text;
         ChangeState(GameState.GameOver);
     }
 
@@ -282,27 +306,32 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void UpdateStopwatch(){
+    private void UpdateStopwatch()
+    {
         stopWatchTime += Time.deltaTime;
         UpdateStopwatchDisplay();
-        if(stopWatchTime >= timeLimit){
+        if (stopWatchTime >= timeLimit)
+        {
             playerObject.SendMessage("Kill");
         }
     }
 
-    private void UpdateStopwatchDisplay(){
-        int minutes = Mathf.FloorToInt(stopWatchTime/60);
+    private void UpdateStopwatchDisplay()
+    {
+        int minutes = Mathf.FloorToInt(stopWatchTime / 60);
         int seconds = Mathf.FloorToInt(stopWatchTime % 60);
 
-        stopWatchDisplay.text = string.Format("{0:00}:{1:00}",minutes,seconds);
+        stopWatchDisplay.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
-    public void StartLevelUp(){
+    public void StartLevelUp()
+    {
         ChangeState(GameState.LevelUp);
         playerObject.SendMessage("RemoveAndApplyUpgrade");
     }
 
-    public void EndLevelUp(){
+    public void EndLevelUp()
+    {
         chosingUpgrade = false;
         Time.timeScale = 1f;
         levelUpScreen.SetActive(false);

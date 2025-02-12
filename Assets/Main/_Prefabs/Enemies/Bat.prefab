@@ -76,7 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1113086233
-  m_SortingLayer: 6
+  m_SortingLayer: 8
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 04fb02d1c189d4d4bbc3119a1c2e4171, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -196,6 +196,9 @@ MonoBehaviour:
   currentHealth: 0
   currentDamage: 0
   deSpawnDistance: 10
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  damageFlashDuration: 0.2
+  deathFadeTime: 0.6
 --- !u!114 &1612691837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,4 +214,10 @@ MonoBehaviour:
   drops:
   - name: Experience Gem
     itemPrefab: {fileID: 3835190465823665118, guid: 2c228ce16128f9646944b725057c568c, type: 3}
-    dropRate: 100
+    dropRate: 90
+  - name: Experience Gem
+    itemPrefab: {fileID: 3081540421207945831, guid: 1e5f024a026672642b4f2ccd7a0c08ae, type: 3}
+    dropRate: 7
+  - name: Experience Gem
+    itemPrefab: {fileID: 4255392748404713102, guid: 64cfd2ca3d0f327499c8e9b204c8b8b8, type: 3}
+    dropRate: 3

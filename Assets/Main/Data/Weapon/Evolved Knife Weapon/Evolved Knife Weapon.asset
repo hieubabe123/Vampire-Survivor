@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e2cadfa9e6f83a4a9dc9647d649a539, type: 3}
   m_Name: Evolved Knife Weapon
   m_EditorClassIdentifier: 
-  weaponPrefab: {fileID: 346675034586117597, guid: a5fe8af53ad9ea44ea53b8cff9efe8de, type: 3}
-  damageWeapon: 10
-  speedWeapon: 15
+  weaponPrefab: {fileID: 4050800178391616766, guid: 6acc7921d53d329458388db52f56a71d, type: 3}
+  damageWeapon: 60
+  speedWeapon: 30
   cooldownDuration: 0.5
-  pierce: 20
-  level: 0
+  pierce: 10
+  projectileCount: 1
+  level: 1
   nextLevelPrefab: {fileID: 0}
   name: Knife Evolved
   description: Update Knife to Evolved Knife
