@@ -168,6 +168,11 @@ public class GameManager : MonoBehaviour
             yield return wait;
             time += Time.deltaTime;
 
+            if (rectTransform == null)
+            {
+                yield break;
+            }
+
             tmPro.color = new Color(tmPro.color.r, tmPro.color.g, tmPro.color.b, 1 - time / duration);
 
             yOffset += speed * Time.deltaTime;

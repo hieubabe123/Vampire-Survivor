@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e2cadfa9e6f83a4a9dc9647d649a539, type: 3}
   m_Name: Aura Weapon Level 8
   m_EditorClassIdentifier: 
+  isAuraWeapon: 1
   weaponPrefab: {fileID: 2037857047071174442, guid: 2a487f3a338faa94a97470c62e421f6e, type: 3}
   damageWeapon: 15
   speedWeapon: 1

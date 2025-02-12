@@ -8,7 +8,8 @@ public class ProjectileWeaponBehaviours : MonoBehaviour
 {
     public WeaponScriptableObject weaponData;
     protected Vector3 direction;
-    public float destroyAfterSeconds;
+    private float destroyAfterSeconds;
+    public float timeToDestroy;
 
     //current stats
     protected float currentDamage;
@@ -25,7 +26,17 @@ public class ProjectileWeaponBehaviours : MonoBehaviour
     }
     protected virtual void Start()
     {
-        Destroy(gameObject, destroyAfterSeconds);
+        destroyAfterSeconds = timeToDestroy;
+    }
+
+    protected virtual void Update()
+    {
+        destroyAfterSeconds -= Time.deltaTime;
+        if (destroyAfterSeconds <= 0)
+        {
+            gameObject.SetActive(false);
+            destroyAfterSeconds = timeToDestroy;
+        }
     }
 
     public float GetCurrentDamage()
@@ -46,6 +57,10 @@ public class ProjectileWeaponBehaviours : MonoBehaviour
         if (dirX < 0 && dirY == 0)
         { //left
             scale.x *= -1;
+        }
+        else if (dirX > 0 && dirY == 0)
+        {
+            rotation.z = 0f;
         }
         else if (dirX == 0 && dirY < 0)
         {  //down
@@ -98,7 +113,7 @@ public class ProjectileWeaponBehaviours : MonoBehaviour
         currentPierce--;
         if (currentPierce <= 0)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

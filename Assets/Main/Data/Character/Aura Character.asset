@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d0b8dc66d42802439faab9c3b5eaa4e, type: 3}
   m_Name: Aura Character
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: -2097252468, guid: b3ddfc07eaf47d74caf1392e58c11b03, type: 3}
+  animator: {fileID: 9100000, guid: 03412750e8fcf1642be5b2a7a2246a49, type: 2}
   name: Aura Character
   startingWeapon: {fileID: 1664064770979739338, guid: efd1d71323abe984184f9268797a42cf, type: 3}
   maxHealth: 50

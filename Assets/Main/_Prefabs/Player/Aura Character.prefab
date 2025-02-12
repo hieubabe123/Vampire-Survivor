@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 7316905943278918870}
   - component: {fileID: 2495089583894060066}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Aura Character
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -262,7 +262,7 @@ SpriteRenderer:
   m_SortingLayerID: 1397166461
   m_SortingLayer: 6
   m_SortingOrder: 1
-  m_Sprite: {fileID: 335895618, guid: 814875116332bc64fb44ecab1da9a97f, type: 3}
+  m_Sprite: {fileID: -2097252468, guid: b3ddfc07eaf47d74caf1392e58c11b03, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -360,7 +360,7 @@ Animator:
   m_GameObject: {fileID: 2495089584766846629}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 56136d8c0177bf74ca2932ad29003ba2, type: 2}
+  m_Controller: {fileID: 9100000, guid: 03412750e8fcf1642be5b2a7a2246a49, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

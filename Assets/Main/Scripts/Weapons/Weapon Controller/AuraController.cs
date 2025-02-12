@@ -4,19 +4,29 @@ using UnityEngine;
 
 public class AuraController : WeaponController
 {
-    // Start is called before the first frame update
+    private GameObject spawnedAura;
     protected override void Start()
     {
         base.Start();
     }
+
     protected override void Attack()
     {
         base.Attack();
-        for (int projectile = 0; projectile < currentProjectileCount; projectile++)
+
+        if (spawnedAura && spawnedAura.activeInHierarchy)
         {
-            GameObject spawnedAura = Instantiate(weaponData.WeaponPrefab);
+            return;
+        }
+
+        spawnedAura = ObjectPooling.instance.GetObjectFromPool(weaponData);
+        if (spawnedAura)
+        {
             spawnedAura.transform.position = transform.position;
             spawnedAura.transform.parent = transform;
+            spawnedAura.SetActive(true);
         }
+
     }
+
 }

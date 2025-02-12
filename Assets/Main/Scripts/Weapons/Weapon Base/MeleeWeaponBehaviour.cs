@@ -6,15 +6,17 @@ using UnityEngine;
 public class MeleeWeaponBehaviour : MonoBehaviour
 {
     public WeaponScriptableObject weaponData;
-    [SerializeField] private float destroyAfterSeconds;
-    
+    private float destroyAfterSeconds;
+    public float timeToDestroy;
+
     //current stats
     protected float currentDamage;
     protected float currentCooldownDuration;
     protected float currentSpeed;
     protected float currentPierce;
 
-    private void Awake(){
+    private void Awake()
+    {
         currentDamage = weaponData.DamageWeapon;
         currentSpeed = weaponData.SpeedWeapon;
         currentCooldownDuration = weaponData.CooldownDuration;
@@ -22,20 +24,37 @@ public class MeleeWeaponBehaviour : MonoBehaviour
     }
     protected virtual void Start()
     {
-        Destroy(gameObject, destroyAfterSeconds);
+        destroyAfterSeconds = timeToDestroy;
     }
 
-    public float GetCurrentDamage(){
+    protected virtual void Update()
+    {
+
+        destroyAfterSeconds -= Time.deltaTime;
+        if (destroyAfterSeconds <= 0)
+        {
+            gameObject.SetActive(false);
+            destroyAfterSeconds = timeToDestroy;
+        }
+    }
+
+    public float GetCurrentDamage()
+    {
         return currentDamage *= FindObjectOfType<PlayerStats>().CurrentMight;
     }
 
 
-    protected virtual void OnTriggerEnter2D(Collider2D other) {
-        if(other.CompareTag("Enemy")){
+    protected virtual void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
             EnemyStats enemy = other.GetComponent<EnemyStats>();
-            enemy.TakeDamage(GetCurrentDamage(),transform.position);
-        }else if(other.CompareTag("Prop")){
-            if(other.gameObject.TryGetComponent(out BreakableProps breakable)){
+            enemy.TakeDamage(GetCurrentDamage(), transform.position);
+        }
+        else if (other.CompareTag("Prop"))
+        {
+            if (other.gameObject.TryGetComponent(out BreakableProps breakable))
+            {
                 breakable.TakeDamage(GetCurrentDamage());
             }
         }

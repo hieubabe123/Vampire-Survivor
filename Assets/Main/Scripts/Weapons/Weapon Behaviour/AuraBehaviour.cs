@@ -15,17 +15,38 @@ public class AuraBehaviour : MeleeWeaponBehaviour
         markedEnemies = new List<GameObject>();
     }
 
-    protected override void OnTriggerEnter2D(Collider2D other){
-        if(other.CompareTag("Enemy") && !markedEnemies.Contains(other.gameObject)){
+    protected override void Update()
+    {
+        base.Update();
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy") && !markedEnemies.Contains(other.gameObject))
+        {
             EnemyStats enemy = other.GetComponent<EnemyStats>();
-            enemy.TakeDamage(GetCurrentDamage(),transform.position);
+            enemy.TakeDamage(GetCurrentDamage(), transform.position);
             markedEnemies.Add(other.gameObject);  //Mark the Enemy had been taken Damage & can not take other Damage from this Aura (Must other Aura)
-        } else if(other.CompareTag("Prop")){
-            if(other.gameObject.TryGetComponent(out BreakableProps breakable) && !markedEnemies.Contains(other.gameObject)){
+        }
+        else if (other.CompareTag("Prop"))
+        {
+            if (other.gameObject.TryGetComponent(out BreakableProps breakable) && !markedEnemies.Contains(other.gameObject))
+            {
                 breakable.TakeDamage(GetCurrentDamage());
                 markedEnemies.Add(other.gameObject); //Mark the Prop had been taken Damage & can not take other Damage from this Aura (Must other Aura)
             }
         }
     }
 
+    private void OnDisable()
+    {
+        if (!gameObject.scene.isLoaded)
+        {
+            return;
+        }
+        if (markedEnemies != null)
+        {
+            markedEnemies.Clear();
+        }
+    }
 }

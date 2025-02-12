@@ -31,7 +31,6 @@ public class WeaponController : MonoBehaviour
             if (currentCooldown <= 0)
             {
                 Attack();
-
             }
         }
     }

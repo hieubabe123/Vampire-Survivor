@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e2cadfa9e6f83a4a9dc9647d649a539, type: 3}
   m_Name: Aura Weapon Level 1
   m_EditorClassIdentifier: 
+  isAuraWeapon: 1
   weaponPrefab: {fileID: 2037857047071174442, guid: 7af105c7b6a73d64a807a85eb606a08b, type: 3}
   damageWeapon: 5
   speedWeapon: 1
-  cooldownDuration: 3
+  cooldownDuration: 5
   pierce: 1
   projectileCount: 1
   level: 1

@@ -25,10 +25,14 @@ public class KnifeController : WeaponController
         isAttacking = true;
         for (int projectile = 0; projectile < currentProjectileCount; projectile++)
         {
-            GameObject spawnKnife = Instantiate(weaponData.WeaponPrefab);
-            Vector3 spawnPositionOffset = new Vector3(Random.Range(minRandomPosX, maxRandomPosX), Random.Range(minRandomPosY, maxRandomPosY), 0);
-            spawnKnife.transform.position = transform.position + spawnPositionOffset;
-            spawnKnife.GetComponent<KnifeBehaviour>().DirectionChecker(playerMovement.lastMovedVector);
+            GameObject spawnKnife = ObjectPooling.instance.GetObjectFromPool(weaponData);
+            if (spawnKnife != null)
+            {
+                Vector3 spawnPositionOffset = new Vector3(Random.Range(minRandomPosX, maxRandomPosX), Random.Range(minRandomPosY, maxRandomPosY), 0);
+                spawnKnife.transform.position = transform.position + spawnPositionOffset;
+                spawnKnife.SetActive(true);
+                spawnKnife.GetComponent<KnifeBehaviour>().DirectionChecker(playerMovement.lastMovedVector);
+            }
 
             yield return new WaitForSeconds(0.3f);
         }

@@ -5,8 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "WeaponScriptableObject", menuName = "ScriptableObjects/Weapon")]
 public class WeaponScriptableObject : ScriptableObject
 {
+    [SerializeField] private bool isAuraWeapon;
+    public bool IsAuraWeapon { get => isAuraWeapon; private set => isAuraWeapon = value; }
     [SerializeField] private GameObject weaponPrefab;
-
     public GameObject WeaponPrefab { get => weaponPrefab; private set => weaponPrefab = value; }
 
     // Base stat for weapons

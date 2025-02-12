@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using TMPro;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
     [SerializeField] private CharacterScriptableObject characterData;
+    private Sprite sprite;
+    private Animator animator;
+    private SpriteRenderer sr;
 
     private float currentHealth;
     private float currentRecovery;
@@ -170,6 +174,11 @@ public class PlayerStats : MonoBehaviour
     {
         //Select chareacter
         characterData = CharacterSelector.GetData();
+        sr = GetComponent<SpriteRenderer>();
+        sr.sprite = CharacterSelector.GetSprite();
+        animator = GetComponent<Animator>();
+        animator.runtimeAnimatorController = CharacterSelector.GetAnimator();
+
         CharacterSelector.instance.DestroySingleton();
 
         //Select weapon and Passive Item
