@@ -535,7 +535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2495089584766846629}
-  poolSize: 10
+  maxPoolSize: 10
 --- !u!1 &3656782405523068369
 GameObject:
   m_ObjectHideFlags: 0
