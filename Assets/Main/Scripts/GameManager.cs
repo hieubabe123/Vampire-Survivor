@@ -117,6 +117,9 @@ public class GameManager : MonoBehaviour
                 if (!chosingUpgrade)
                 {
                     UpgradingLevel();
+
+                    //Audio Clip
+                    AudioManager.instance.PlaySFX(FindObjectOfType<AudioManager>().upgradeItem);
                 }
                 break;
 

@@ -278,6 +278,7 @@ public class PlayerStats : MonoBehaviour
             if (CurrentHealth <= 0)
             {
                 Kill();
+                AudioManager.instance.PlaySFX(FindObjectOfType<AudioManager>().playerDeath);
             }
             UpdateHealthBar();
         }

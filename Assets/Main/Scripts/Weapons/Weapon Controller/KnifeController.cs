@@ -13,6 +13,7 @@ public class KnifeController : WeaponController
     protected override void Start()
     {
         base.Start();
+
     }
     protected override void Attack()
     {
@@ -32,6 +33,8 @@ public class KnifeController : WeaponController
                 spawnKnife.transform.position = transform.position + spawnPositionOffset;
                 spawnKnife.SetActive(true);
                 spawnKnife.GetComponent<KnifeBehaviour>().DirectionChecker(playerMovement.lastMovedVector);
+
+                AudioManager.instance.PlaySFX(FindObjectOfType<AudioManager>().shootEnemy);
             }
 
             yield return new WaitForSeconds(0.3f);

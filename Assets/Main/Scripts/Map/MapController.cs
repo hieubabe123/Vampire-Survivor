@@ -52,16 +52,20 @@ public class MapController : MonoBehaviour
             SpawnChunk(currentChunk.transform.Find(directionName).position);
 
             // To Check & Spawn chunk when player move to diagonal way (Ex: Move to Up + Right way -> Spawn Up right, up)
-            if(directionName.Contains("Right")){
+            if (directionName.Contains("Right"))
+            {
                 CheckAndSpawnChunk("Right");
             }
-            if(directionName.Contains("Left")){
+            if (directionName.Contains("Left"))
+            {
                 CheckAndSpawnChunk("Left");
             }
-            if(directionName.Contains("Up")){
+            if (directionName.Contains("Up"))
+            {
                 CheckAndSpawnChunk("Up");
             }
-            if(directionName.Contains("Down")){
+            if (directionName.Contains("Down"))
+            {
                 CheckAndSpawnChunk("Down");
             }
         }
